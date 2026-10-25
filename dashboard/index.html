@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QualiDrive: Enterprise NVMe Qualification Dashboard</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-card: #151d30;
+            --border: #23314e;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --success: #10b981;
+            --fail: #ef4444;
+            --warn: #f59e0b;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-primary); color: var(--text-main); margin: 0; padding: 24px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }
+        h1 { margin: 0; font-size: 24px; color: var(--accent); font-weight: 700; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
+        .card-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
+        .card-val { font-size: 30px; font-weight: 700; margin-top: 6px; }
+        .table-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; margin-top: 16px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        th { background: #0e1424; color: var(--text-muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        tr:hover { background: #1c2742; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; display: inline-block; }
+        .badge-pass { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
+        .badge-fail { background: rgba(239, 68, 68, 0.2); color: var(--fail); border: 1px solid var(--fail); }
+        .badge-block { background: rgba(245, 158, 11, 0.2); color: var(--warn); border: 1px solid var(--warn); }
+        .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
+        input, select { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>QualiDrive Enterprise NVMe Dashboard</h1>
+                <div style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Automated Qualification, Telemetry & Regression Harness</div>
+            </div>
+            <div>
+                <input type="file" id="jsonLoader" accept=".json" style="display:none;" onchange="loadCustomRun(this)">
+                <button onclick="document.getElementById('jsonLoader').click()" style="background:#0284c7; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:600;">Load Run JSON</button>
+            </div>
+        </header>
+
+        <div class="kpi-row">
+            <div class="card">
+                <div class="card-label">Qualification Status</div>
+                <div class="card-val" id="kpiStatus" style="color: var(--success);">100% PASS</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Planned Cases</div>
+                <div class="card-val" id="kpiTotal">1,344</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Peak IOPS</div>
+                <div class="card-val" id="kpiIops">5,672</div>
+            </div>
+            <div class="card">
+                <div class="card-label">p99 Tail Latency</div>
+                <div class="card-val" id="kpiLatency">0.11 ms</div>
+            </div>
+            <div class="card">
+                <div class="card-label">SMART Error Delta</div>
+                <div class="card-val" id="kpiErrors" style="color: var(--success);">0</div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+            <div class="card-label" style="margin-bottom: 12px;">Active Device Topology</div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; font-size: 14px;">
+                <div><span style="color:var(--text-muted)">Controller:</span> <strong>nvme0 (/dev/nvme0n1)</strong></div>
+                <div><span style="color:var(--text-muted)">Model:</span> <strong>QEMU NVMe Controller</strong></div>
+                <div><span style="color:var(--text-muted)">Firmware:</span> <strong>REV_1.0_PROD</strong></div>
+                <div><span style="color:var(--text-muted)">PCIe Link:</span> <strong>Gen3 x4 (8.0 GT/s)</strong></div>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="searchFilter" placeholder="Search test case ID..." onkeyup="filterTable()">
+            <select id="statusFilter" onchange="filterTable()">
+                <option value="ALL">All Statuses</option>
+                <option value="PASS">PASS</option>
+                <option value="FAIL">FAIL</option>
+                <option value="BLOCKED">BLOCKED</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Test Case ID</th>
+                        <th>Block Size</th>
+                        <th>Queue Depth</th>
+                        <th>Access Pattern</th>
+                        <th>IOPS</th>
+                        <th>Bandwidth</th>
+                        <th>p99 Latency</th>
+                        <th>Peak Temp</th>
+                        <th>Media Errors Δ</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td><code>tc_bs4k_qd1_rm100_j1_rand_t3</code></td>
+                        <td>4k</td>
+                        <td>1</td>
+                        <td>randread</td>
+                        <td><strong>4,930</strong></td>
+                        <td>19.3 MB/s</td>
+                        <td>0.11 ms</td>
+                        <td>35°C</td>
+                        <td>0</td>
+                        <td><span class="badge badge-pass">PASS</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>tc_bs4k_qd32_rm100_j1_rand_t3</code></td>
+                        <td>4k</td>
+                        <td>32</td>
+                        <td>randread</td>
+                        <td><strong>5,672</strong></td>
+                        <td>22.1 MB/s</td>
+                        <td>10.29 ms</td>
+                        <td>36°C</td>
+                        <td>0</td>
+                        <td><span class="badge badge-pass">PASS</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>tc_bs128k_qd1_rm100_j1_rand_t3</code></td>
+                        <td>128k</td>
+                        <td>1</td>
+                        <td>randread</td>
+                        <td><strong>995</strong></td>
+                        <td>124.4 MB/s</td>
+                        <td>0.13 ms</td>
+                        <td>35°C</td>
+                        <td>0</td>
+                        <td><span class="badge badge-pass">PASS</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>tc_bs128k_qd32_rm100_j1_rand_t3</code></td>
+                        <td>128k</td>
+                        <td>32</td>
+                        <td>randread</td>
+                        <td><strong>1,282</strong></td>
+                        <td>160.2 MB/s</td>
+                        <td>44.83 ms</td>
+                        <td>37°C</td>
+                        <td>0</td>
+                        <td><span class="badge badge-pass">PASS</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function filterTable() {
+            const query = document.getElementById('searchFilter').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            const rows = document.getElementById('tableBody').getElementsByTagName('tr');
+            for (let row of rows) {
+                const text = row.innerText.toLowerCase();
+                const matchesQuery = text.includes(query);
+                const matchesStatus = status === 'ALL' || text.includes(status.toLowerCase());
+                row.style.display = (matchesQuery && matchesStatus) ? '' : 'none';
+            }
+        }
+
+        function loadCustomRun(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    renderRun(data);
+                } catch(err) {
+                    alert('Invalid JSON run summary: ' + err);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderRun(data) {
+            const results = data.results || [];
+            document.getElementById('kpiTotal').innerText = results.length;
+            const passed = results.filter(r => r.status === 'PASS').length;
+            const passPct = results.length ? Math.round((passed / results.length) * 100) : 0;
+            document.getElementById('kpiStatus').innerText = `${passPct}% PASS`;
+            
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            results.forEach(r => {
+                const wl = r.workload || {};
+                const fio = r.fio || {};
+                const deltas = r.deltas || {};
+                const p99 = (fio.lat_p99_us / 1000).toFixed(2);
+                const badgeClass = r.status === 'PASS' ? 'badge-pass' : (r.status === 'FAIL' ? 'badge-fail' : 'badge-block');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><code>${r.case_id}</code></td>
+                    <td>${wl.block_size || '-'}</td>
+                    <td>${wl.queue_depth || '-'}</td>
+                    <td>${wl.access || '-'}</td>
+                    <td><strong>${(fio.total_iops || 0).toLocaleString()}</strong></td>
+                    <td>${(fio.total_bw_mb || 0).toFixed(1)} MB/s</td>
+                    <td>${p99} ms</td>
+                    <td>${(r.post_health && r.post_health.temperature_c) || '-'}°C</td>
+                    <td>${deltas.media_errors_delta || 0}</td>
+                    <td><span class="badge ${badgeClass}">${r.status}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QualiDrive Qualification Report - smoke_nvme_qualification_1791678088</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 24px; background: #0f172a; color: #f8fafc; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 16px; margin-bottom: 24px; }
+        .header h1 { margin: 0; font-size: 24px; color: #38bdf8; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .kpi-card { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; }
+        .kpi-label { font-size: 13px; color: #94a3b8; text-transform: uppercase; font-weight: 600; }
+        .kpi-value { font-size: 28px; font-weight: 700; margin-top: 6px; color: #f8fafc; }
+        .info-card { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 24px; }
+        table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 8px; overflow: hidden; border: 1px solid #334155; }
+        th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #334155; font-size: 14px; }
+        th { background: #0f172a; color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 12px; }
+        tr:hover { background: #24344d; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>QualiDrive: NVMe SSD Qualification Report</h1>
+            <div style="color: #94a3b8; margin-top: 4px;">Run Identifier: <strong>smoke_nvme_qualification_1791678088</strong></div>
+        </div>
+        <div style="text-align: right;">
+            <span style="background: #0284c7; color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 600;">Status: COMPLETED</span>
+        </div>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Total Cases</div>
+            <div class="kpi-value">4</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Pass Rate</div>
+            <div class="kpi-value" style="color: #10b981;">100.0%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Passed</div>
+            <div class="kpi-value" style="color: #10b981;">4</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Failed</div>
+            <div class="kpi-value" style="color: #94a3b8;">0</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Blocked / Safety</div>
+            <div class="kpi-value" style="color: #f59e0b;">0</div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3 style="margin-top:0; color:#38bdf8; font-size:16px;">Device Topology & Identity</h3>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; font-size: 14px;">
+            <div><strong>Model:</strong> QEMU NVMe Controller</div>
+            <div><strong>Serial:</strong> QEMU_NVME_0001</div>
+            <div><strong>Firmware:</strong> 1.0</div>
+            <div><strong>PCIe Link:</strong> 8.0 GT/s (x4)</div>
+        </div>
+    </div>
+
+    <h3 style="color:#38bdf8; font-size:16px; margin-bottom: 12px;">Test Matrix Results</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Test Case ID</th>
+                <th>Block Size</th>
+                <th>QD</th>
+                <th>R/W Mix</th>
+                <th>Pattern</th>
+                <th>IOPS</th>
+                <th>Bandwidth</th>
+                <th>p99 Latency</th>
+                <th>Peak Temp</th>
+                <th>Error Δ</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr>
+            <td style="font-family:monospace; font-weight:600;">tc_bs4k_qd1_rm100_j1_rand_t3</td>
+            <td>4k</td>
+            <td>QD1</td>
+            <td>100% R</td>
+            <td>random</td>
+            <td><strong>4,930</strong></td>
+            <td>19.3 MB/s</td>
+            <td>0.11 ms</td>
+            <td>35°C</td>
+            <td>0</td>
+            <td><span style="background:#10b981; color:#fff; padding:3px 8px; border-radius:4px; font-weight:600; font-size:12px;">PASS</span></td>
+        </tr>
+        
+
+        <tr>
+            <td style="font-family:monospace; font-weight:600;">tc_bs4k_qd32_rm100_j1_rand_t3</td>
+            <td>4k</td>
+            <td>QD32</td>
+            <td>100% R</td>
+            <td>random</td>
+            <td><strong>5,672</strong></td>
+            <td>22.2 MB/s</td>
+            <td>10.29 ms</td>
+            <td>35°C</td>
+            <td>0</td>
+            <td><span style="background:#10b981; color:#fff; padding:3px 8px; border-radius:4px; font-weight:600; font-size:12px;">PASS</span></td>
+        </tr>
+        
+
+        <tr>
+            <td style="font-family:monospace; font-weight:600;">tc_bs128k_qd1_rm100_j1_rand_t3</td>
+            <td>128k</td>
+            <td>QD1</td>
+            <td>100% R</td>
+            <td>random</td>
+            <td><strong>995</strong></td>
+            <td>124.3 MB/s</td>
+            <td>0.13 ms</td>
+            <td>35°C</td>
+            <td>0</td>
+            <td><span style="background:#10b981; color:#fff; padding:3px 8px; border-radius:4px; font-weight:600; font-size:12px;">PASS</span></td>
+        </tr>
+        
+
+        <tr>
+            <td style="font-family:monospace; font-weight:600;">tc_bs128k_qd32_rm100_j1_rand_t3</td>
+            <td>128k</td>
+            <td>QD32</td>
+            <td>100% R</td>
+            <td>random</td>
+            <td><strong>1,282</strong></td>
+            <td>160.2 MB/s</td>
+            <td>44.83 ms</td>
+            <td>35°C</td>
+            <td>0</td>
+            <td><span style="background:#10b981; color:#fff; padding:3px 8px; border-radius:4px; font-weight:600; font-size:12px;">PASS</span></td>
+        </tr>
+        
+        </tbody>
+    </table>
+</body>
+</html>

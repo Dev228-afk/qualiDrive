@@ -1,0 +1,661 @@
+{
+  "run_id": "smoke_nvme_qualification_1791678088",
+  "total_cases": 4,
+  "passed": 4,
+  "failed": 0,
+  "blocked": 0,
+  "results": [
+    {
+      "run_id": "smoke_nvme_qualification_1791678088",
+      "case_id": "tc_bs4k_qd1_rm100_j1_rand_t3",
+      "status": "PASS",
+      "device": {
+        "controller_id": "nvme0",
+        "device_path": "/dev/nvme0",
+        "model": "QEMU NVMe Controller",
+        "serial": "QEMU_NVME_0001",
+        "firmware_rev": "1.0",
+        "pci_bdf": "0000:00:04.0",
+        "pcie_link": {
+          "speed": "8.0 GT/s",
+          "width": "x4",
+          "max_speed": "8.0 GT/s",
+          "max_width": "x4",
+          "downgraded": false
+        },
+        "namespaces": [
+          {
+            "nsid": 1,
+            "device_path": "/dev/nvme0n1",
+            "size_bytes": 10737418240,
+            "sector_size": 512,
+            "sector_count": 20971520,
+            "utilization_bytes": 0
+          }
+        ]
+      },
+      "workload": {
+        "case_id": "tc_bs4k_qd1_rm100_j1_rand_t3",
+        "block_size": "4k",
+        "queue_depth": 1,
+        "read_percent": 100,
+        "jobs": 1,
+        "access": "random",
+        "runtime_seconds": 3,
+        "direct": 1,
+        "ioengine": "libaio"
+      },
+      "pre_health": {
+        "timestamp": "2026-10-11T00:21:28.655020+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "fio": {
+        "read_iops": 4929.69,
+        "write_iops": 0.0,
+        "total_iops": 4929.69,
+        "read_bw_mb": 19.26,
+        "write_bw_mb": 0.0,
+        "total_bw_mb": 19.26,
+        "lat_p50_us": 30.59,
+        "lat_p90_us": 42.24,
+        "lat_p95_us": 69.12,
+        "lat_p99_us": 112.13,
+        "lat_p99_9_us": 175.1,
+        "lat_mean_us": 31.1,
+        "cpu_usr_percent": 2.2,
+        "cpu_sys_percent": 20.7,
+        "disk_util_percent": 0.0,
+        "total_errors": 0
+      },
+      "post_health": {
+        "timestamp": "2026-10-11T00:21:42.051322+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "deltas": {
+        "temperature_delta_c": 0,
+        "media_errors_delta": 0,
+        "error_log_delta": 0,
+        "unsafe_shutdowns_delta": 0,
+        "host_reads_gb_delta": 0.0,
+        "host_writes_gb_delta": 0.0,
+        "detected_kernel_signatures": []
+      },
+      "thresholds": [
+        {
+          "metric": "error_count_delta",
+          "observed": 0,
+          "operator": "<=",
+          "threshold": 0,
+          "passed": true,
+          "details": "Media errors delta: 0, Error log delta: 0"
+        },
+        {
+          "metric": "temperature_c",
+          "observed": 35,
+          "operator": "<=",
+          "threshold": 80,
+          "passed": true,
+          "details": "Peak temperature: 35\u00b0C (limit 80\u00b0C)"
+        },
+        {
+          "metric": "p99_latency_ms",
+          "observed": 0.112,
+          "operator": "<=",
+          "threshold": 100.0,
+          "passed": true,
+          "details": "Observed p99: 0.112 ms (limit 100.0 ms)"
+        },
+        {
+          "metric": "p99_9_latency_ms",
+          "observed": 0.175,
+          "operator": "<=",
+          "threshold": 200.0,
+          "passed": true,
+          "details": "Observed p99.9: 0.175 ms (limit 200.0 ms)"
+        },
+        {
+          "metric": "total_iops",
+          "observed": 4929.69,
+          "operator": ">=",
+          "threshold": 1.0,
+          "passed": true,
+          "details": "Observed IOPS: 4929.69 (min 1.0)"
+        },
+        {
+          "metric": "kernel_fault_signatures",
+          "observed": [],
+          "operator": "==",
+          "threshold": [],
+          "passed": true,
+          "details": "None detected"
+        },
+        {
+          "metric": "pcie_link_downgrade",
+          "observed": false,
+          "operator": "==",
+          "threshold": false,
+          "passed": true,
+          "details": "PCIe link retained nominal width"
+        }
+      ],
+      "artifacts": [
+        "reports/smoke_run/artifacts/tc_bs4k_qd1_rm100_j1_rand_t3_fio.json"
+      ],
+      "duration_sec": 13.43,
+      "error_message": ""
+    },
+    {
+      "run_id": "smoke_nvme_qualification_1791678088",
+      "case_id": "tc_bs4k_qd32_rm100_j1_rand_t3",
+      "status": "PASS",
+      "device": {
+        "controller_id": "nvme0",
+        "device_path": "/dev/nvme0",
+        "model": "QEMU NVMe Controller",
+        "serial": "QEMU_NVME_0001",
+        "firmware_rev": "1.0",
+        "pci_bdf": "0000:00:04.0",
+        "pcie_link": {
+          "speed": "8.0 GT/s",
+          "width": "x4",
+          "max_speed": "8.0 GT/s",
+          "max_width": "x4",
+          "downgraded": false
+        },
+        "namespaces": [
+          {
+            "nsid": 1,
+            "device_path": "/dev/nvme0n1",
+            "size_bytes": 10737418240,
+            "sector_size": 512,
+            "sector_count": 20971520,
+            "utilization_bytes": 0
+          }
+        ]
+      },
+      "workload": {
+        "case_id": "tc_bs4k_qd32_rm100_j1_rand_t3",
+        "block_size": "4k",
+        "queue_depth": 32,
+        "read_percent": 100,
+        "jobs": 1,
+        "access": "random",
+        "runtime_seconds": 3,
+        "direct": 1,
+        "ioengine": "libaio"
+      },
+      "pre_health": {
+        "timestamp": "2026-10-11T00:21:42.084642+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "fio": {
+        "read_iops": 5672.11,
+        "write_iops": 0.0,
+        "total_iops": 5672.11,
+        "read_bw_mb": 22.16,
+        "write_bw_mb": 0.0,
+        "total_bw_mb": 22.16,
+        "lat_p50_us": 5210.11,
+        "lat_p90_us": 6389.76,
+        "lat_p95_us": 7241.73,
+        "lat_p99_us": 10289.15,
+        "lat_p99_9_us": 13434.88,
+        "lat_mean_us": 5453.93,
+        "cpu_usr_percent": 3.43,
+        "cpu_sys_percent": 20.53,
+        "disk_util_percent": 0.0,
+        "total_errors": 0
+      },
+      "post_health": {
+        "timestamp": "2026-10-11T00:21:45.363842+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "deltas": {
+        "temperature_delta_c": 0,
+        "media_errors_delta": 0,
+        "error_log_delta": 0,
+        "unsafe_shutdowns_delta": 0,
+        "host_reads_gb_delta": 0.0,
+        "host_writes_gb_delta": 0.0,
+        "detected_kernel_signatures": []
+      },
+      "thresholds": [
+        {
+          "metric": "error_count_delta",
+          "observed": 0,
+          "operator": "<=",
+          "threshold": 0,
+          "passed": true,
+          "details": "Media errors delta: 0, Error log delta: 0"
+        },
+        {
+          "metric": "temperature_c",
+          "observed": 35,
+          "operator": "<=",
+          "threshold": 80,
+          "passed": true,
+          "details": "Peak temperature: 35\u00b0C (limit 80\u00b0C)"
+        },
+        {
+          "metric": "p99_latency_ms",
+          "observed": 10.289,
+          "operator": "<=",
+          "threshold": 100.0,
+          "passed": true,
+          "details": "Observed p99: 10.289 ms (limit 100.0 ms)"
+        },
+        {
+          "metric": "p99_9_latency_ms",
+          "observed": 13.435,
+          "operator": "<=",
+          "threshold": 200.0,
+          "passed": true,
+          "details": "Observed p99.9: 13.435 ms (limit 200.0 ms)"
+        },
+        {
+          "metric": "total_iops",
+          "observed": 5672.11,
+          "operator": ">=",
+          "threshold": 1.0,
+          "passed": true,
+          "details": "Observed IOPS: 5672.11 (min 1.0)"
+        },
+        {
+          "metric": "kernel_fault_signatures",
+          "observed": [],
+          "operator": "==",
+          "threshold": [],
+          "passed": true,
+          "details": "None detected"
+        },
+        {
+          "metric": "pcie_link_downgrade",
+          "observed": false,
+          "operator": "==",
+          "threshold": false,
+          "passed": true,
+          "details": "PCIe link retained nominal width"
+        }
+      ],
+      "artifacts": [
+        "reports/smoke_run/artifacts/tc_bs4k_qd32_rm100_j1_rand_t3_fio.json"
+      ],
+      "duration_sec": 3.31,
+      "error_message": ""
+    },
+    {
+      "run_id": "smoke_nvme_qualification_1791678088",
+      "case_id": "tc_bs128k_qd1_rm100_j1_rand_t3",
+      "status": "PASS",
+      "device": {
+        "controller_id": "nvme0",
+        "device_path": "/dev/nvme0",
+        "model": "QEMU NVMe Controller",
+        "serial": "QEMU_NVME_0001",
+        "firmware_rev": "1.0",
+        "pci_bdf": "0000:00:04.0",
+        "pcie_link": {
+          "speed": "8.0 GT/s",
+          "width": "x4",
+          "max_speed": "8.0 GT/s",
+          "max_width": "x4",
+          "downgraded": false
+        },
+        "namespaces": [
+          {
+            "nsid": 1,
+            "device_path": "/dev/nvme0n1",
+            "size_bytes": 10737418240,
+            "sector_size": 512,
+            "sector_count": 20971520,
+            "utilization_bytes": 0
+          }
+        ]
+      },
+      "workload": {
+        "case_id": "tc_bs128k_qd1_rm100_j1_rand_t3",
+        "block_size": "128k",
+        "queue_depth": 1,
+        "read_percent": 100,
+        "jobs": 1,
+        "access": "random",
+        "runtime_seconds": 3,
+        "direct": 1,
+        "ioengine": "libaio"
+      },
+      "pre_health": {
+        "timestamp": "2026-10-11T00:21:45.395556+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "fio": {
+        "read_iops": 994.67,
+        "write_iops": 0.0,
+        "total_iops": 994.67,
+        "read_bw_mb": 124.33,
+        "write_bw_mb": 0.0,
+        "total_bw_mb": 124.33,
+        "lat_p50_us": 13.89,
+        "lat_p90_us": 46.85,
+        "lat_p95_us": 69.12,
+        "lat_p99_us": 132.1,
+        "lat_p99_9_us": 199.68,
+        "lat_mean_us": 21.59,
+        "cpu_usr_percent": 1.8,
+        "cpu_sys_percent": 13.07,
+        "disk_util_percent": 0.0,
+        "total_errors": 0
+      },
+      "post_health": {
+        "timestamp": "2026-10-11T00:21:48.680510+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "deltas": {
+        "temperature_delta_c": 0,
+        "media_errors_delta": 0,
+        "error_log_delta": 0,
+        "unsafe_shutdowns_delta": 0,
+        "host_reads_gb_delta": 0.0,
+        "host_writes_gb_delta": 0.0,
+        "detected_kernel_signatures": []
+      },
+      "thresholds": [
+        {
+          "metric": "error_count_delta",
+          "observed": 0,
+          "operator": "<=",
+          "threshold": 0,
+          "passed": true,
+          "details": "Media errors delta: 0, Error log delta: 0"
+        },
+        {
+          "metric": "temperature_c",
+          "observed": 35,
+          "operator": "<=",
+          "threshold": 80,
+          "passed": true,
+          "details": "Peak temperature: 35\u00b0C (limit 80\u00b0C)"
+        },
+        {
+          "metric": "p99_latency_ms",
+          "observed": 0.132,
+          "operator": "<=",
+          "threshold": 100.0,
+          "passed": true,
+          "details": "Observed p99: 0.132 ms (limit 100.0 ms)"
+        },
+        {
+          "metric": "p99_9_latency_ms",
+          "observed": 0.2,
+          "operator": "<=",
+          "threshold": 200.0,
+          "passed": true,
+          "details": "Observed p99.9: 0.2 ms (limit 200.0 ms)"
+        },
+        {
+          "metric": "total_iops",
+          "observed": 994.67,
+          "operator": ">=",
+          "threshold": 1.0,
+          "passed": true,
+          "details": "Observed IOPS: 994.67 (min 1.0)"
+        },
+        {
+          "metric": "kernel_fault_signatures",
+          "observed": [],
+          "operator": "==",
+          "threshold": [],
+          "passed": true,
+          "details": "None detected"
+        },
+        {
+          "metric": "pcie_link_downgrade",
+          "observed": false,
+          "operator": "==",
+          "threshold": false,
+          "passed": true,
+          "details": "PCIe link retained nominal width"
+        }
+      ],
+      "artifacts": [
+        "reports/smoke_run/artifacts/tc_bs128k_qd1_rm100_j1_rand_t3_fio.json"
+      ],
+      "duration_sec": 3.32,
+      "error_message": ""
+    },
+    {
+      "run_id": "smoke_nvme_qualification_1791678088",
+      "case_id": "tc_bs128k_qd32_rm100_j1_rand_t3",
+      "status": "PASS",
+      "device": {
+        "controller_id": "nvme0",
+        "device_path": "/dev/nvme0",
+        "model": "QEMU NVMe Controller",
+        "serial": "QEMU_NVME_0001",
+        "firmware_rev": "1.0",
+        "pci_bdf": "0000:00:04.0",
+        "pcie_link": {
+          "speed": "8.0 GT/s",
+          "width": "x4",
+          "max_speed": "8.0 GT/s",
+          "max_width": "x4",
+          "downgraded": false
+        },
+        "namespaces": [
+          {
+            "nsid": 1,
+            "device_path": "/dev/nvme0n1",
+            "size_bytes": 10737418240,
+            "sector_size": 512,
+            "sector_count": 20971520,
+            "utilization_bytes": 0
+          }
+        ]
+      },
+      "workload": {
+        "case_id": "tc_bs128k_qd32_rm100_j1_rand_t3",
+        "block_size": "128k",
+        "queue_depth": 32,
+        "read_percent": 100,
+        "jobs": 1,
+        "access": "random",
+        "runtime_seconds": 3,
+        "direct": 1,
+        "ioengine": "libaio"
+      },
+      "pre_health": {
+        "timestamp": "2026-10-11T00:21:48.716490+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "fio": {
+        "read_iops": 1281.57,
+        "write_iops": 0.0,
+        "total_iops": 1281.57,
+        "read_bw_mb": 160.2,
+        "write_bw_mb": 0.0,
+        "total_bw_mb": 160.2,
+        "lat_p50_us": 22413.31,
+        "lat_p90_us": 30277.63,
+        "lat_p95_us": 36438.02,
+        "lat_p99_us": 44826.62,
+        "lat_p99_9_us": 56360.96,
+        "lat_mean_us": 24038.62,
+        "cpu_usr_percent": 2.23,
+        "cpu_sys_percent": 13.17,
+        "disk_util_percent": 0.0,
+        "total_errors": 0
+      },
+      "post_health": {
+        "timestamp": "2026-10-11T00:21:52.008000+00:00",
+        "temperature_c": 35,
+        "critical_warning": 0,
+        "available_spare_percent": 100,
+        "percentage_used": 0,
+        "media_errors": 0,
+        "num_err_log_entries": 0,
+        "power_on_hours": 10,
+        "unsafe_shutdowns": 0,
+        "host_reads_gb": 0.0,
+        "host_writes_gb": 0.0,
+        "controller_busy_time_minutes": 0,
+        "raw_smart": {},
+        "raw_error_log": []
+      },
+      "deltas": {
+        "temperature_delta_c": 0,
+        "media_errors_delta": 0,
+        "error_log_delta": 0,
+        "unsafe_shutdowns_delta": 0,
+        "host_reads_gb_delta": 0.0,
+        "host_writes_gb_delta": 0.0,
+        "detected_kernel_signatures": []
+      },
+      "thresholds": [
+        {
+          "metric": "error_count_delta",
+          "observed": 0,
+          "operator": "<=",
+          "threshold": 0,
+          "passed": true,
+          "details": "Media errors delta: 0, Error log delta: 0"
+        },
+        {
+          "metric": "temperature_c",
+          "observed": 35,
+          "operator": "<=",
+          "threshold": 80,
+          "passed": true,
+          "details": "Peak temperature: 35\u00b0C (limit 80\u00b0C)"
+        },
+        {
+          "metric": "p99_latency_ms",
+          "observed": 44.827,
+          "operator": "<=",
+          "threshold": 100.0,
+          "passed": true,
+          "details": "Observed p99: 44.827 ms (limit 100.0 ms)"
+        },
+        {
+          "metric": "p99_9_latency_ms",
+          "observed": 56.361,
+          "operator": "<=",
+          "threshold": 200.0,
+          "passed": true,
+          "details": "Observed p99.9: 56.361 ms (limit 200.0 ms)"
+        },
+        {
+          "metric": "total_iops",
+          "observed": 1281.57,
+          "operator": ">=",
+          "threshold": 1.0,
+          "passed": true,
+          "details": "Observed IOPS: 1281.57 (min 1.0)"
+        },
+        {
+          "metric": "kernel_fault_signatures",
+          "observed": [],
+          "operator": "==",
+          "threshold": [],
+          "passed": true,
+          "details": "None detected"
+        },
+        {
+          "metric": "pcie_link_downgrade",
+          "observed": false,
+          "operator": "==",
+          "threshold": false,
+          "passed": true,
+          "details": "PCIe link retained nominal width"
+        }
+      ],
+      "artifacts": [
+        "reports/smoke_run/artifacts/tc_bs128k_qd32_rm100_j1_rand_t3_fio.json"
+      ],
+      "duration_sec": 3.33,
+      "error_message": ""
+    }
+  ]
+}

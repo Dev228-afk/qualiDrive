@@ -1,0 +1,25 @@
+run:
+  name: full_nvme_qualification
+  backend: qemu
+  device_whitelist:
+    - "/dev/nvme0n1"
+    - "nvme0n1"
+    - "/dev/qemu-nvme"
+  destructive: false
+
+matrix:
+  block_size: ["4k", "8k", "16k", "32k", "64k", "128k", "256k", "1M"]
+  queue_depth: [1, 2, 4, 8, 16, 32, 64]
+  read_percent: [0, 50, 70, 100]
+  jobs: [1, 2, 4]
+  access: ["sequential", "random"]
+  runtime_seconds: [10]
+
+thresholds:
+  max_error_count_delta: 0
+  max_temperature_c: 80
+  max_p99_latency_ms: 50.0
+  max_p99_9_latency_ms: 100.0
+  min_iops: 10.0
+  require_no_kernel_errors: true
+  require_no_pcie_downgrade: true

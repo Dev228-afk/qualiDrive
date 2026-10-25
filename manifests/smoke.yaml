@@ -1,0 +1,25 @@
+run:
+  name: smoke_nvme_qualification
+  backend: qemu
+  device_whitelist:
+    - "/dev/nvme0n1"
+    - "nvme0n1"
+    - "/dev/qemu-nvme"
+  destructive: false
+
+matrix:
+  block_size: ["4k", "128k"]
+  queue_depth: [1, 32]
+  read_percent: [100]
+  jobs: [1]
+  access: ["random"]
+  runtime_seconds: [3]
+
+thresholds:
+  max_error_count_delta: 0
+  max_temperature_c: 80
+  max_p99_latency_ms: 100.0
+  max_p99_9_latency_ms: 200.0
+  min_iops: 1.0
+  require_no_kernel_errors: true
+  require_no_pcie_downgrade: true
